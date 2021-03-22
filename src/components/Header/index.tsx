@@ -12,7 +12,7 @@ const Header = (): JSX.Element => {
     count += item.amount;
     return count;
   }, 0);
-
+  
   return (
     <Container>
       <Link to="/">

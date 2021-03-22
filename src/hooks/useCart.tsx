@@ -28,30 +28,41 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     if (storagedCart) {
       return JSON.parse(storagedCart);
     }
-
+    
     return [];
   });
 
   const addProduct = async (productId: number) => {
     try {
-      let productAmount = {};
-
-      api.get(`stock/${productId}`).then(response => productAmount = response.data)
-      console.log(productAmount);
-
-      if(productAmount >= 1){
-        if (cart.filter(item => item.id === productId) !== [])
-          cart[productId].amount++;
-        else {
-          api.get(`products/${productId}`).then(response => setCart([
-            ...cart,
-            response.data.product,
-          ]));
-        }
-      }
-      else {
-        toast.error('Quantidade solicitada fora de estoque');
-      }
+      api.get(`stock/${productId}`)
+        .then(response => response.data)
+        .then(function(result) {
+           if (result.amount >= 1) {
+            if (cart.length !== 0)
+            {
+              cart.map(item => {
+                if(item.id === productId)
+                {
+                  item.amount++;
+                  result.amount--;
+                }
+              })
+            }
+            else {
+              api.get(`products/${productId}`)
+                .then(response => response.data)
+                .then(function (result) {
+                  setCart([
+                    ...cart,
+                    result,
+                  ])
+                });
+            }
+          }
+          else {
+            toast.error('Quantidade solicitada fora de estoque');
+          }
+        })
       localStorage.setItem('@RocketShoes:cart', String(cart));
       // TODO
     } catch {
