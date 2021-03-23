@@ -22,23 +22,7 @@ interface CartContextData {
 const CartContext = createContext<CartContextData>({} as CartContextData);
 
 export function CartProvider({ children }: CartProviderProps): JSX.Element {
-  localStorage.setItem('@RocketShoes:cart', JSON.stringify([
-    {
-      id: 1,
-      title: "Produto teste 1",
-      price: 139.9,
-      image: "teste",
-      amount: 1,
-    },
-    {
-      id: 3,
-      title: "Produto teste 1",
-      price: 139.9,
-      image: "teste",
-      amount: 1,
-    },
 
-  ]));
   const [cart, setCart] = useState<Product[]>(() => {
     const storagedCart = localStorage.getItem('@RocketShoes:cart');
 
@@ -54,21 +38,35 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const { data: stock } = await api.get(`stock/${productId}`);
       const { data: product } = await api.get(`products/${productId}`);
 
-      if (stock.amount >= 1) {
-        if (cart.filter(item => item.id === productId) !== []) {
-          cart.map(item => (item.id === productId ? item.amount++ : item.amount))
+      const productExist = cart.some(item => item.id === productId);
+      if (productExist) {
+        const productAmount = cart.reduce((acc, item) => {
+          if (item.id === productId)
+            return acc = item.amount;
+          else
+            return acc + 0;
+        }, 0);
+
+        if (stock.amount > productAmount) {
+          const cartUpdated = cart.map(item => item.id === productId ? {
+            ...item,
+            amount: item.amount + 1
+          } : item)
+          setCart(cartUpdated);
         }
         else {
-          setCart([
-            ...cart,
-            product,
-          ])
+          toast.error('Quantidade solicitada fora de estoque');
         }
       }
       else {
-        toast.error('Quantidade solicitada fora de estoque');
+        setCart([
+          ...cart,
+          {
+            ...product,
+            amount: 1
+          }
+        ])
       }
-      // TODO
     } catch {
       toast.error('Erro na adição do produto');
       // TODO
