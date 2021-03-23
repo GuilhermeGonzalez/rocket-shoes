@@ -33,12 +33,12 @@ const Home = (): JSX.Element => {
   useEffect(() => {
     function loadProducts() {
       api.get('products')
-        .then(response => setProducts(response.data));     
+        .then(response => setProducts(response.data));
     }
 
-    products.map(item => {
-      item.priceFormatted = formatPrice(item.price);
-    })
+    products.map(item => (
+      item.priceFormatted = formatPrice(item.price)
+    ))
 
     loadProducts();
   }, []);

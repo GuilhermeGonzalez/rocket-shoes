@@ -27,36 +27,32 @@ const Cart = (): JSX.Element => {
     // TODO
   }))
 
-
   const total =
     formatPrice(
-      cart.reduce((sumTotal, product) => {
+      cartFormatted.reduce((sumTotal, product) => {
         return sumTotal += product.price * product.amount;
         // TODO
       }, 0)
     )
 
   function handleProductIncrement(product: Product) {
-    cartFormatted.filter(function(item) {
-      if(product.id === item.id)
-        item.amount++;
-    })
-    // updateProductAmount({
-    //   productId: product.id,
-    //   amount: product.amount++,
-    // });
+
+    updateProductAmount({
+      productId: product.id,
+      amount: product.amount + 1,
+    });
     // TODO
   }
 
   function handleProductDecrement(product: Product) {
-    cartFormatted.filter(function(item) {
-      if(product.id === item.id)
-        item.amount--;
-    })
-    // updateProductAmount({
-    //   productId: product.id,
-    //   amount: product.amount--,
-    // });
+    // cartFormatted.filter(function (item) {
+    //   if (product.id === item.id)
+    //     item.amount--;
+    // })
+    updateProductAmount({
+      productId: product.id,
+      amount: product.amount - 1,
+    });
     // TODO
   }
 
