@@ -1,7 +1,7 @@
 <img width="100%"  src="./docs/Background.png" alt="Background ignite">
 <div align="center">
   <h1>:rocket: Rocket-Shoes  </h1>
-  <h2>1# Desafio Ignite Trilha React</h2>
+  <h2>2# Desafio Ignite Trilha React</h2>
   <p align="left">Segundo desafio proposto na trilha de react do Ignite da Rocketseat, neste desafio foi solicitado que aplicassemos o que aprendemos no segundo modulo a respeito de FakeAPI, a utilização de Contextos e a criação de funcionalidades em um novo hook(useCart) criado para o projeto </p>
 </div>
 
