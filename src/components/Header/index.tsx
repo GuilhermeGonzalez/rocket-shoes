@@ -8,8 +8,8 @@ import { useCart } from '../../hooks/useCart';
 
 const Header = (): JSX.Element => {
   const { cart } = useCart();
-  const cartSize = cart.reduce((count, item) => {
-    count += item.amount;
+  const cartSizeCounter = cart.reduce((count, item) => {
+    count += 1;
     return count;
   }, 0);
   return (
@@ -22,7 +22,7 @@ const Header = (): JSX.Element => {
         <div>
           <strong>Meu carrinho</strong>
           <span data-testid="cart-size">
-            {(cartSize === 1 ? `${cartSize} item` : `${cartSize} itens`)}
+            {(cartSizeCounter === 1 ? `${cartSizeCounter} item` : `${cartSizeCounter} itens`)}
           </span>
         </div>
         <MdShoppingBasket size={36} color="#FFF" />

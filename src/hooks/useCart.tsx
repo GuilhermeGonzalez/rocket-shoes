@@ -35,38 +35,26 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const addProduct = async (productId: number) => {
     try {
-      const { data: stock } = await api.get(`stock/${productId}`);
-      const { data: product } = await api.get(`products/${productId}`);
+      const resp = await api.get(`stock/${productId}`)
+      const saldo = resp.data
 
-      const productExist = cart.some(item => item.id === productId);
-      if (productExist) {
-        const productAmount = cart.reduce((acc, item) => {
-          if (item.id === productId)
-            return acc = item.amount;
-          else
-            return acc + 0;
-        }, 0);
+      let newCart = [...cart]
+      const index = newCart.findIndex(prod => prod.id === productId)
 
-        if (stock.amount > productAmount) {
-          const cartUpdated = cart.map(item => item.id === productId ? {
-            ...item,
-            amount: item.amount + 1
-          } : item)
-          setCart(cartUpdated);
-        }
-        else {
-          toast.error('Quantidade solicitada fora de estoque');
-        }
+      if (index >= 0 && saldo.amount <= newCart[index].amount) {
+        toast.error('Quantidade solicitada fora de estoque')
+        return
       }
+
+      if (index >= 0)
+        newCart[index].amount++;
       else {
-        setCart([
-          ...cart,
-          {
-            ...product,
-            amount: 1
-          }
-        ])
+        const { data: product } = await api.get(`products/${productId}`)
+        newCart.push({ ...product, amount: 1 })
       }
+
+      setCart(newCart)
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
     } catch {
       toast.error('Erro na adição do produto');
       // TODO
@@ -76,7 +64,14 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      setCart(cart.filter(item => item.id !== productId));
+      const exist = cart.findIndex(prod => prod.id === productId)
+      if (exist < 0)
+        return toast.error('Erro na remoção do produto');
+      else {
+        let newCart = cart.filter(item => item.id !== productId);
+        setCart(newCart);
+        localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
+      }
     } catch {
       toast.error('Erro na remoção do produto');
     }
@@ -86,36 +81,41 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
     productId,
     amount,
   }: UpdateProductAmount) => {
+    if (amount <= 0)
+      return
     try {
-      const { data: stock } = await api.get(`stock/${productId}`);
+      const index = cart.findIndex(prod => prod.id === productId)
+      let actualAmount = 0
 
-      if (stock.amount < amount) {
-        toast.error('Quantidade solicitada fora de estoque');
-      }
-      else {
-        const productExist = cart.some(item => item.id === productId);
-        if (productExist) {
-          const cartUpdated = cart.map(item => item.id === productId ? {
-            ...item,
-            amount: amount
-          } : item)
-          setCart(cartUpdated);
-        }
-        else {
-          toast.error('Erro na alteração de quantidade do produto');
+      if (index >= 0)
+        actualAmount = cart[index].amount
+
+
+      if (amount > actualAmount) {
+        const { data: stock } = await api.get(`stock/${productId}`)
+
+        if (amount > stock.amount) {
+          toast.error('Quantidade solicitada fora de estoque')
+          return
         }
       }
+
+      const newCart = cart.map(prod => {
+        return prod.id === productId
+          ? { ...prod, amount }
+          : { ...prod }
+      })
+
+      localStorage.setItem('@RocketShoes:cart', JSON.stringify(newCart));
+
+      setCart(newCart)
+
       // TODO
     } catch {
       toast.error('Erro na alteração de quantidade do produto');
       // TODO 
     }
   };
-
-
-  useEffect(() => {
-    localStorage.setItem('@RocketShoes:cart', JSON.stringify(cart));
-  }, [cart])
 
   return (
     <CartContext.Provider
