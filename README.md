@@ -3,6 +3,7 @@
   <h1>:rocket: Rocket-Shoes  </h1>
   <h2>2# Desafio Ignite Trilha React</h2>
   <p align="left">Segundo desafio proposto na trilha de react do Ignite da Rocketseat, neste desafio foi solicitado que aplicassemos o que aprendemos no segundo modulo a respeito de FakeAPI, a utilização de Contextos e a criação de funcionalidades em um novo hook(useCart) criado para o projeto </p>
+  <p align="left">Não foi possivel realizar o deploy deste projeto devido a necessidade da utilização da FakeAPI com o JSON Server.</p>
 </div>
 
 <hr/>
