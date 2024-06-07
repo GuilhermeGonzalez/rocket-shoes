@@ -1,36 +1,36 @@
 <img width="100%"  src="./docs/Background.png" alt="Background ignite">
 <div align="center">
   <h1>:rocket: Rocket-Shoes  </h1>
-  <h2>2# Desafio Ignite Trilha React</h2>
-  <p align="left">Segundo desafio proposto na trilha de react do Ignite da Rocketseat, neste desafio foi solicitado que aplicassemos o que aprendemos no segundo modulo a respeito de FakeAPI, a utilização de Contextos e a criação de funcionalidades em um novo hook(useCart) criado para o projeto </p>
-  <p align="left">Não foi possivel realizar o deploy deste projeto devido a necessidade da utilização da FakeAPI com o JSON Server.</p>
+  <h2>2nd Challenge Ignite React Track</h2>
+  <p align="left">Second challenge proposed in the React track of Rocketseat's Ignite. In this challenge, we were asked to apply what we learned in the second module regarding FakeAPI, the use of Contexts, and the creation of functionalities in a new hook (useCart) created for the project.</p>
+  <p align="left">It was not possible to deploy this project due to the need to use the FakeAPI with JSON Server.</p>
 </div>
 
 <hr/>
 
-## Atividades propostas
-- [x] Adicionar um novo produto ao carrinho
-- [x] Remover um produto do carrinho
-- [x] Alterar a quantidade de um produto no carrinho
-- [x] Cálculo dos preços sub-total e total do carrinho
-- [x] Validação de estoque
-- [x] Exibição de mensagens de erro
+## Proposed Activities
+- [x] Add a new product to the cart
+- [x] Remove a product from the cart
+- [x] Change the quantity of a product in the cart
+- [x] Calculation of subtotal and total prices of the cart
+- [x] Stock validation
+- [x] Display error messages
 
 ## Extras
-- [x] Fake API com JSON Server
-- [x] Preservar dados do carrinho com localStorage API
-- [x] Mostrar erros com toastify
+- [x] Fake API with JSON Server
+- [x] Preserve cart data with localStorage API
+- [x] Show errors with toastify
 
-<h3>Tela Principal</h3>
-<p align="left">Na tela principal é possivel visualizar a quantidade dos items que estão presentes no carrinho, sendo possivel adiciona-los clicando em "Adicionar ao carrinho", e também podendo visualizar a quantidade de determinado item que se encontra no carrinho. Todos os dados dos produtos foram consumidos de uma FakeAPI. Em ambas as telas é feito validação se o produto contem em estoque.</p>
+<h3>Main Screen</h3>
+<p align="left">On the main screen, you can see the quantity of items present in the cart, being able to add them by clicking "Add to cart", and also being able to see the quantity of a specific item in the cart. All product data was consumed from a FakeAPI. Validation is done on both screens to check if the product is in stock.</p>
 <img width="100%"  src="./docs/print_1.png" alt="Homepage">
 
-<h3>Carrinho de compras</h3>
-<p align="left">Nesta tela é possivel visualizar os produtos colocados no carrinho, podendo remove-los ou incrementar ou decrementar a quantidade respectiva de cada produto. Ao clicar em um dos botões é ajustado automaticamente o subtotal e o total. Todos os produtos colocados no carrinho são mantidos caso você feche o navegor, devido ao uso do LocalStorage.</p>
+<h3>Shopping Cart</h3>
+<p align="left">On this screen, you can see the products added to the cart, being able to remove them or increase or decrease the respective quantity of each product. By clicking on one of the buttons, the subtotal and total are automatically adjusted. All products added to the cart are kept even if you close the browser, due to the use of LocalStorage.</p>
 <img width="100%"  src="./docs/print_2.png" alt="Carrinho">
 
 <hr/>
 
 ## Giving feedback
 
-Feedback é sempre bem-vindo, se você tiver qualquer sugestão ou duvida por favor me enviar um e-mail: gcgonzalez99@hotmail.com
+Feedback is always welcome. If you have any suggestions or questions, please feel free to send me an email: gcgonzalez99@hotmail.com
